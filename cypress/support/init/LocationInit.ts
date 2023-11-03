@@ -7,7 +7,7 @@ export default class LocationInit {
             location: {
                 address: "haneen",
                 city: "haneen",
-                countryCode: "HK",
+                countryCode: "PS",
                 fax: "254785",
                 name: "haneen",
                 note: "haneen",

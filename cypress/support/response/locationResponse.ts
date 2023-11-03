@@ -1,5 +1,5 @@
 export interface CreateLocationResponse {
-    location: {
+    location:{
         id: number,
         name: string,
         country: {
