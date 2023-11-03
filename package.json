@@ -1,0 +1,23 @@
+{
+  "name": "automation-e2e-final-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaneenIbrahem/Automation-E2E-Final-Task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HaneenIbrahem/Automation-E2E-Final-Task/issues"
+  },
+  "homepage": "https://github.com/HaneenIbrahem/Automation-E2E-Final-Task#readme",
+  "devDependencies": {
+    "cypress": "^13.4.0",
+    "typescript": "^5.2.2"
+  }
+}
