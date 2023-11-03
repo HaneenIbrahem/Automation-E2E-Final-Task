@@ -51,7 +51,7 @@ function login(username: string, password: string) {
 }
 
 Cypress.Commands.add('addNewLocation', (requestURL: string, userPayload: CreateLocationPayload) => {
-    return cy.api({
+    return cy.request({
         method: 'POST',
         url: requestURL,
         body: userPayload,

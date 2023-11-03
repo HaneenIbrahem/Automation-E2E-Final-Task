@@ -1,5 +1,5 @@
 export interface CreateLocationResponse {
-    data: {
+    location: {
         id: number,
         name: string,
         country: {
@@ -16,4 +16,23 @@ export interface CreateLocationResponse {
         note: string,
         noOfEmployees: number
     }
+
+
+    // {
+    //     "id": 32,
+    //     "name": "haneen",
+    //     "country": {
+    //         "countryCode": "HK",
+    //         "name": "HONG KONG",
+    //         "countryName": "Hong Kong"
+    //     },
+    //     "province": "haneen",
+    //     "city": "haneen",
+    //     "address": "haneen",
+    //     "zipCode": "haneen",
+    //     "phone": "222222222",
+    //     "fax": "254785",
+    //     "note": "haneen",
+    //     "noOfEmployees": 0
+    // }
 }
