@@ -30,6 +30,8 @@ import { CreateJobTitlePayload } from "./payload/jobTitlePayload";
 import { CreateJobTitleResponse } from "./response/jobTitleResponse";
 import { CreateJobDetailsPayload } from "./payload/jobDetailspayload";
 import { CreateJobDetailsResponse } from "./response/jobDetailsResponse";
+import { CreateSalaryPayload } from "./payload/salaryPayload";
+import { CreateSalaryResponse } from "./response/salaryResponse";
 import LoginPage from '../support/page-objects/loginPage'
 import cypress from "cypress";
 
@@ -41,6 +43,7 @@ declare global {
             addNewLocation: (requestURL: string, locationPayload: CreateLocationPayload) => Chainable<CreateLocationResponse>
             addNewJobTitle: (requestURL: string, jobTitlePayload: CreateJobTitlePayload) => Chainable<CreateJobTitleResponse>
             addNewJobDetails: (empNumber: number, jobDetailsPayload: CreateJobDetailsPayload) => Chainable<CreateJobDetailsResponse>
+            addNewSalary: (empNumber: number, SalaryPayload: CreateSalaryPayload) => Chainable<CreateSalaryResponse>
             logout: typeof logout
             login: typeof login
             addNewEmployee: typeof addNewEmployee
@@ -86,6 +89,17 @@ function addNewUser(username: string, password: string, status: boolean, userRol
         }
     })
 }
+
+Cypress.Commands.add('addNewSalary', (empNumber: number, salaryPayload: CreateSalaryPayload) => {
+    return cy.request({
+        method: 'POST',
+        url: `/web/index.php/api/v2/pim/employees/${empNumber}/salary-components`,
+        body: salaryPayload.Salary,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).its('body')
+});
 
 Cypress.Commands.add('addNewJobDetails', (empNumber: number,jobDetailsPayload: CreateJobDetailsPayload) => {
     return cy.request({
