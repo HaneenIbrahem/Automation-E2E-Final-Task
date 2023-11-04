@@ -1,5 +1,5 @@
 export default class genaricHelper {
     static genaricRandomString(){
-        return (Math.random()*1172)*Math.random()
+        return (Math.random()*1000)*Math.random()
     }
 }

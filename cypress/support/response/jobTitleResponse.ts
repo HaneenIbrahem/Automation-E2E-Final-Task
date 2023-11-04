@@ -1,5 +1,5 @@
 export interface CreateJobTitleResponse {
-    JobTitle:{
+    data:{
         id: number,
         title: string,
         description: string,

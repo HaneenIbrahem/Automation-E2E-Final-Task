@@ -58,6 +58,9 @@ Cypress.Commands.add('addNewLocation', (requestURL: string, locationPayload: Cre
         method: 'POST',
         url: requestURL,
         body: locationPayload.location,
+        headers: {
+            'Content-Type': 'application/json'
+        }
     }).its('body')
 });
 

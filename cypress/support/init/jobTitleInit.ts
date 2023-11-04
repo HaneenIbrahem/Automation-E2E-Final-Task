@@ -5,10 +5,10 @@ export default class JobTitleInit {
     static initJobTitle(): CreateJobTitlePayload {
         let createJobTitlePayload: CreateJobTitlePayload = {
             JobTitle: {
-                    title: `Haneen${GenaricHelper.genaricRandomString()}`,
-                    description: "Haneen",
+                    title: `Software Engineer ${GenaricHelper.genaricRandomString()}`,
+                    description: "Responsible for software development and programming",
                     specification: "",
-                    note: "no note"
+                    note: "This is a full-time position in our technology department"
             }
         }
         return createJobTitlePayload

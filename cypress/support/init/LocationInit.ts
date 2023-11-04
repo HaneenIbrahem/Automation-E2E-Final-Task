@@ -5,15 +5,15 @@ export default class LocationInit {
     static initLocation(): CreateLocationPayload {
         let createLocationPayload: CreateLocationPayload = {
             location: {
-                address: "haneen",
-                city: "haneen",
+                address: "15 Al-Quds Street",
+                city: "Bethlehem",
                 countryCode: "PS",
-                fax: "254785",
-                name: "haneen",
-                note: "haneen",
-                phone: "222222222",
-                province: "haneen",
-                zipCode: "haneen"
+                fax: "N/A",
+                name: "Bethlehem Branch",
+                note: "Our regional branch in Bethlehem",
+                phone: "+970 59 097 3299",
+                province: "West Bank",
+                zipCode: "45678"
             }
         }
         return createLocationPayload

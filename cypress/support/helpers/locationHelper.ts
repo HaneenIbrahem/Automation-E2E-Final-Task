@@ -1,4 +1,4 @@
-import LocationInit from "../init/LocationInit"
+import LocationInit from "../init/locationInit"
 
 const baseUrl = Cypress.config().baseUrl
 
