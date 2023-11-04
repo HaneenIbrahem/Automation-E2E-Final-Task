@@ -1,4 +1,5 @@
 import LocationInit from "../init/locationInit"
+import { CreateLocationResponse } from "../response/locationResponse";
 
 const baseUrl = Cypress.config().baseUrl
 
@@ -8,6 +9,8 @@ export const URLs = {
 
 export default class addLocation{
     static addNewLocationViaAPI(){
-        cy.addNewLocation(URLs.location, LocationInit.initLocation())
+        return cy.addNewLocation(URLs.location, LocationInit.initLocation()).then((response: CreateLocationResponse) => {
+            return response.data.id;
+        });
     }
 }

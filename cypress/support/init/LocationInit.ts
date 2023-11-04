@@ -1,5 +1,6 @@
 import { CreateLocationPayload } from "../payload/locationPayload"
 import GenaricHelper from "../helpers/genericHelper";
+// import { jobId } from "../helpers/jobTitleHelper";
 
 export default class LocationInit {
     static initLocation(): CreateLocationPayload {

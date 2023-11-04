@@ -29,6 +29,7 @@ import { CreateLocationResponse } from "../support/response/locationResponse";
 import { CreateJobTitlePayload } from "./payload/jobTitlePayload";
 import { CreateJobTitleResponse } from "./response/jobTitleResponse";
 import LoginPage from '../support/page-objects/loginPage'
+import cypress from "cypress";
 
 const loginObj: LoginPage = new LoginPage();
 declare global {
@@ -39,6 +40,9 @@ declare global {
             addNewJobTitle: (requestURL: string, jobTitlePayload: CreateJobTitlePayload) => Chainable<CreateJobTitleResponse>
             logout: typeof logout
             login: typeof login
+            addNewEmployee: typeof addNewEmployee
+            addNewUser: typeof addNewUser
+            jobDetails: typeof jobDetails
         }
     }
 
@@ -51,6 +55,49 @@ function logout() {
 function login(username: string, password: string) {
     cy.visit("/web/index.php/auth/login");
     loginObj.login(username, password);
+}
+
+function addNewEmployee(firstName: string, middleName: string, lastName: string, empPicture: string, employeeId: number) {
+    return cy.request({
+        method: 'POST',
+        url: '/web/index.php/api/v2/pim/employees',
+        body: {
+            firstName: firstName,
+            middleName: middleName,
+            lastName: lastName,
+            empPicture: empPicture,
+            employeeId: employeeId
+        }
+    })
+}
+
+function addNewUser(username: string, password: string, status: boolean, userRoleId: number, empNumber: number) {
+    return cy.request({
+        method: 'POST',
+        url: '/web/index.php/api/v2/admin/users',
+        body: {
+            username: username,
+            password: password,
+            status: status,
+            userRoleId: userRoleId,
+            empNumber: empNumber
+        }
+    })
+}
+
+function jobDetails(joinedDate: string, jobTitleId: number, empStatusId: number, jobCategoryId: number, subunitId: number, locationId: number, empNumber: number) {
+    return cy.request({
+        method: 'PUT',
+        url: `/web/index.php/api/v2/pim/employees/${empNumber}/job-details`,
+        body: {
+            joinedDate: joinedDate,
+            jobTitleId: jobTitleId,
+            empStatusId: empStatusId,
+            jobCategoryId: jobCategoryId,
+            subunitId: subunitId,
+            locationId: locationId
+        }
+    })
 }
 
 Cypress.Commands.add('addNewLocation', (requestURL: string, locationPayload: CreateLocationPayload) => {
@@ -75,3 +122,9 @@ Cypress.Commands.add('addNewJobTitle', (requestURL: string, jobTitlePayload: Cre
 Cypress.Commands.add('logout', logout)
 
 Cypress.Commands.add('login', login)
+
+Cypress.Commands.add('addNewEmployee', addNewEmployee)
+
+Cypress.Commands.add('addNewUser', addNewUser)
+
+Cypress.Commands.add('jobDetails', jobDetails)
