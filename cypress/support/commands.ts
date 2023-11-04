@@ -28,6 +28,8 @@ import { CreateLocationPayload } from "../support/payload/locationPayload";
 import { CreateLocationResponse } from "../support/response/locationResponse";
 import { CreateJobTitlePayload } from "./payload/jobTitlePayload";
 import { CreateJobTitleResponse } from "./response/jobTitleResponse";
+import { CreateJobDetailsPayload } from "./payload/jobDetailspayload";
+import { CreateJobDetailsResponse } from "./response/jobDetailsResponse";
 import LoginPage from '../support/page-objects/loginPage'
 import cypress from "cypress";
 
@@ -38,11 +40,11 @@ declare global {
             // addNewUser: typeof addNewUser
             addNewLocation: (requestURL: string, locationPayload: CreateLocationPayload) => Chainable<CreateLocationResponse>
             addNewJobTitle: (requestURL: string, jobTitlePayload: CreateJobTitlePayload) => Chainable<CreateJobTitleResponse>
+            addNewJobDetails: (empNumber: number, jobDetailsPayload: CreateJobDetailsPayload) => Chainable<CreateJobDetailsResponse>
             logout: typeof logout
             login: typeof login
             addNewEmployee: typeof addNewEmployee
             addNewUser: typeof addNewUser
-            jobDetails: typeof jobDetails
         }
     }
 
@@ -85,20 +87,16 @@ function addNewUser(username: string, password: string, status: boolean, userRol
     })
 }
 
-function jobDetails(joinedDate: string, jobTitleId: number, empStatusId: number, jobCategoryId: number, subunitId: number, locationId: number, empNumber: number) {
+Cypress.Commands.add('addNewJobDetails', (empNumber: number,jobDetailsPayload: CreateJobDetailsPayload) => {
     return cy.request({
         method: 'PUT',
         url: `/web/index.php/api/v2/pim/employees/${empNumber}/job-details`,
-        body: {
-            joinedDate: joinedDate,
-            jobTitleId: jobTitleId,
-            empStatusId: empStatusId,
-            jobCategoryId: jobCategoryId,
-            subunitId: subunitId,
-            locationId: locationId
+        body: jobDetailsPayload.JobDetails,
+        headers: {
+            'Content-Type': 'application/json'
         }
-    })
-}
+    }).its('body')
+});
 
 Cypress.Commands.add('addNewLocation', (requestURL: string, locationPayload: CreateLocationPayload) => {
     return cy.request({
@@ -127,4 +125,3 @@ Cypress.Commands.add('addNewEmployee', addNewEmployee)
 
 Cypress.Commands.add('addNewUser', addNewUser)
 
-Cypress.Commands.add('jobDetails', jobDetails)

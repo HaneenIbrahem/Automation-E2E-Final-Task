@@ -1,6 +1,6 @@
 import { should } from "chai";
 
-export default class loginPage{
+export default class LoginPage{
     elements = {
         userName: () => cy.get('[placeholder = "Username"]'),
         password: () => cy.get('[placeholder = "Password"]'),
