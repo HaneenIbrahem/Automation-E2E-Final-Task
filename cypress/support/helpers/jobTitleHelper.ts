@@ -10,7 +10,10 @@ export const URLs = {
 export default class addJobTitle{
     static addNewJobTitleViaAPI(){
         return cy.addNewJobTitle(URLs.jobTitle, JobTitleInit.initJobTitle()).then((response: CreateJobTitleResponse) => {
-            return response.data.id;
+            return {
+                id: response.data.id,
+                title: response.data.title
+              };
         });
     }
 }

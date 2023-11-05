@@ -10,7 +10,10 @@ export const URLs = {
 export default class addLocation{
     static addNewLocationViaAPI(){
         return cy.addNewLocation(URLs.location, LocationInit.initLocation()).then((response: CreateLocationResponse) => {
-            return response.data.id;
+            return {
+                id: response.data.id,
+                name: response.data.name
+              };
         });
     }
 }
