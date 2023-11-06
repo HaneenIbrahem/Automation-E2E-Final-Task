@@ -57,7 +57,6 @@ describe("TimeSheet/Reports", () => {
       ['Haneen1', jobTitle, '50000'],
       ['Haneen2', jobTitle, '50000'],
       ['Haneen3', jobTitle, '50000']])
-
   })
 
   afterEach(() => {
