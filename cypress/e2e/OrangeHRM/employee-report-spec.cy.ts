@@ -15,6 +15,7 @@ let jobTitle: string
 
 let locationId: number
 let locationName: string
+
 describe("TimeSheet/Reports", () => {
 
 
@@ -48,21 +49,20 @@ describe("TimeSheet/Reports", () => {
 
   })
 
-  it("should generate an Employee report with search criteria", () => {
+  it("should generate an Employee report", () => {
     reportObj.navigateToReportPage();
-    // reportObj.addNewReport('Account Assistant', 'Texas R&D')
     reportObj.addNewReport(jobTitle, locationName)
     reportObj.reportAssertion()
     checkDataInTable('.oxd-report-table', [
       ['Haneen1', jobTitle, '50000'],
       ['Haneen2', jobTitle, '50000'],
       ['Haneen3', jobTitle, '50000']])
-    
+
   })
 
   afterEach(() => {
     empNumbers.forEach((empNumber) => {
-      cy.deleteEmployee(empNumber); // Pass the empNumber to deleteEmployee function
+      cy.deleteEmployee(empNumber);
     });
     cy.deleteLocation(locationId)
     cy.deleteJobTitle(jobTitleId)

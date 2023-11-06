@@ -7,11 +7,11 @@ export default class LocationInit {
         let createLocationPayload: CreateLocationPayload = {
             location: {
                 address: "15 Al-Quds Street",
-                city: "Bethlehem",
+                city: "Tulkarm",
                 countryCode: "PS",
                 fax: "N/A",
-                name: "Bethlehem Branch",
-                note: "Our regional branch in Bethlehem",
+                name: "Beit Led Branch",
+                note: "Our regional branch in Tulkarm",
                 phone: "+970 59 097 3299",
                 province: "West Bank",
                 zipCode: "45678"

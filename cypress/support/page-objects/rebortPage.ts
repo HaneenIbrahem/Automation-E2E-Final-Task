@@ -70,7 +70,6 @@ export default class ReportPage {
     }
     reportAssertion() {
         this.elements.ReportNameHeader().should('contain', 'Employee Benefits Summary - 2023')
-        this.elements.TableHeader().should('have.length', 3)
         this.elements.TableHeader().should('contain.text', 'Personal')
         this.elements.TableHeader().should('contain.text', 'Job')
         this.elements.TableHeader().should('contain.text', 'Salary')

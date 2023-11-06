@@ -1,5 +1,5 @@
 export const checkDataInTable = (tableSelector: string, rowsData: any[]) => {
-    cy.get(tableSelector).find('.rgRow').should('have.length.gt', 0).each(($row, rowIndex) => {
+    cy.get(tableSelector).find('.rgRow').should('have.length', 3).each(($row, rowIndex) => {
         if (rowIndex < rowsData.length) {
             const rowData = rowsData[rowIndex];
             let allDataFound = true;
