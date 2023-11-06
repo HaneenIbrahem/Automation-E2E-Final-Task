@@ -8,6 +8,8 @@ import { checkDataInTable } from "../../support/utils/checkDataInTable";
 
 const reportObj: ReportPage = new ReportPage();
 
+let empNumbers: number[] = [];
+
 let jobTitleId: number
 let jobTitle: string
 
@@ -31,6 +33,7 @@ describe("TimeSheet/Reports", () => {
             let empNumber: number;
             cy.addNewEmployee(`${dataEmp.addEmployee.firstName}${i}`, `${dataEmp.addEmployee.middleName}${i}`, `${dataEmp.addEmployee.lastName}${i}`, dataEmp.addEmployee.empPicture, dataEmp.addEmployee.employeeId).then((response) => {
               empNumber = response.body.data.empNumber
+              empNumbers.push(empNumber)
             }).then(() => {
               cy.addNewUser(`${dataEmp.addUser.username}${i}`, dataEmp.addUser.password, dataEmp.addUser.status, dataEmp.addUser.userRoleId, empNumber)
             })
@@ -45,16 +48,26 @@ describe("TimeSheet/Reports", () => {
 
   })
 
-
   it("should generate an Employee report with search criteria", () => {
     reportObj.navigateToReportPage();
-    // reportObj.addNewReport('DR', 'Amman100')
+    // reportObj.addNewReport('Account Assistant', 'Texas R&D')
     reportObj.addNewReport(jobTitle, locationName)
     reportObj.reportAssertion()
     checkDataInTable('.oxd-report-table', [
       ['Haneen1', jobTitle, '50000'],
       ['Haneen2', jobTitle, '50000'],
       ['Haneen3', jobTitle, '50000']])
+    
+  })
+
+  afterEach(() => {
+    empNumbers.forEach((empNumber) => {
+      cy.deleteEmployee(empNumber); // Pass the empNumber to deleteEmployee function
+    });
+    cy.deleteLocation(locationId)
+    cy.deleteJobTitle(jobTitleId)
+    reportObj.deleteReport()
+
   })
 
 });

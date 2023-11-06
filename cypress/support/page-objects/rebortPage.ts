@@ -15,7 +15,12 @@ export default class ReportPage {
 
         ReportNameHeader: () => cy.get('h6.oxd-text.oxd-text--h6'),
 
-        TableHeader: () => cy.get('.group-rgRow .header-content')
+        TableHeader: () => cy.get('.group-rgRow .header-content'),
+
+        SearchField: () => cy.get('.oxd-autocomplete-text-input'),
+        SearchBTN: () => cy.get('button[type="submit"]'),
+        DeleteIcons: () => cy.get('i.oxd-icon.bi-trash'),
+        DeleteBTN: () => cy.get('.oxd-button--label-danger')
     }
     navigateToReportPage() {
         this.elements.MainMenuItems().contains('PIM').click()
@@ -69,6 +74,17 @@ export default class ReportPage {
         this.elements.TableHeader().should('contain.text', 'Personal')
         this.elements.TableHeader().should('contain.text', 'Job')
         this.elements.TableHeader().should('contain.text', 'Salary')
+    }
+    deleteReport() {
+        cy.visit('/web/index.php/pim/viewDefinedPredefinedReports')
+        this.elements.SearchField().type('Employee Benefits Summary - 2023')
+        cy.contains('.oxd-autocomplete-option', 'Searching....').should('exist');
+        cy.contains('.oxd-autocomplete-option', 'Searching....').should('not.exist');
+        cy.get('.oxd-autocomplete-option').should('be.visible').click({ force: true })
+        // cy.contains('Employee Benefits Summary - 2023').click()
+        this.elements.SearchBTN().click({ force: true })
+        this.elements.DeleteIcons().click()
+        this.elements.DeleteBTN().click()
     }
 
 }

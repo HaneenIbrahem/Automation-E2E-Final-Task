@@ -41,13 +41,16 @@ declare global {
         interface Chainable {
             // addNewUser: typeof addNewUser
             addNewLocation: (requestURL: string, locationPayload: CreateLocationPayload) => Chainable<CreateLocationResponse>
+            deleteLocation: typeof deleteLocation
             addNewJobTitle: (requestURL: string, jobTitlePayload: CreateJobTitlePayload) => Chainable<CreateJobTitleResponse>
+            deleteJobTitle: typeof deleteJobTitle
             addNewJobDetails: (empNumber: number, jobDetailsPayload: CreateJobDetailsPayload) => Chainable<CreateJobDetailsResponse>
             addNewSalary: (empNumber: number, SalaryPayload: CreateSalaryPayload) => Chainable<CreateSalaryResponse>
             logout: typeof logout
             login: typeof login
             addNewEmployee: typeof addNewEmployee
             addNewUser: typeof addNewUser
+            deleteEmployee: typeof deleteEmployee
         }
     }
 
@@ -72,6 +75,16 @@ function addNewEmployee(firstName: string, middleName: string, lastName: string,
             lastName: lastName,
             empPicture: empPicture,
             employeeId: employeeId
+        }
+    })
+}
+
+function deleteEmployee(empNumber: number){
+    cy.request({ 
+        method: 'DELETE',
+        url: `/web/index.php/api/v2/pim/employees`,
+        body: {
+            ids: [empNumber]
         }
     })
 }
@@ -123,6 +136,16 @@ Cypress.Commands.add('addNewLocation', (requestURL: string, locationPayload: Cre
     }).its('body')
 });
 
+function deleteLocation(locationId: number){
+    cy.request({
+        method: 'DELETE',
+        url: '/web/index.php/api/v2/admin/locations',
+        body: {
+            ids: [locationId]
+        }
+    })
+}
+
 Cypress.Commands.add('addNewJobTitle', (requestURL: string, jobTitlePayload: CreateJobTitlePayload) => {
     return cy.request({
         method: 'POST',
@@ -131,6 +154,16 @@ Cypress.Commands.add('addNewJobTitle', (requestURL: string, jobTitlePayload: Cre
     }).its('body')
 });
 
+function deleteJobTitle(jobTitleId: number){
+    cy.request({
+        method: 'DELETE',
+        url: '/web/index.php/api/v2/admin/job-titles',
+        body: {
+            ids: [jobTitleId]
+        }
+    })
+}
+
 Cypress.Commands.add('logout', logout)
 
 Cypress.Commands.add('login', login)
@@ -138,4 +171,10 @@ Cypress.Commands.add('login', login)
 Cypress.Commands.add('addNewEmployee', addNewEmployee)
 
 Cypress.Commands.add('addNewUser', addNewUser)
+
+Cypress.Commands.add('deleteEmployee', deleteEmployee)
+
+Cypress.Commands.add('deleteLocation', deleteLocation)
+
+Cypress.Commands.add('deleteJobTitle', deleteJobTitle)
 
