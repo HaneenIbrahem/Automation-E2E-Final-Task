@@ -4,7 +4,7 @@ const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 module.exports = defineConfig({
   e2e: {
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
-    supportFile: "cypress/support/commands.ts",
+    supportFile: "cypress/support/e2e.js",
     baseUrl: 'https://opensource-demo.orangehrmlive.com',
     setupNodeEvents(on, config) {
       // implement node event listeners here
@@ -13,6 +13,7 @@ module.exports = defineConfig({
     },
     execTimeout: 1200000,
     env: {
+      allure:true,
       snapshotOnly: true,
       allureReuseAfterSpec: true,
       download_dir: "./cypress/downloads",
