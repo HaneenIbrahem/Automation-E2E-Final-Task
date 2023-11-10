@@ -16,14 +16,14 @@ export default class ReportPage {
         rejectBTN: () => cy.get('.oxd-button--danger'),
     }
     navigateToClaimPage() {
-        this.elements.MainMenuItems().contains('Claim').click({force: true})
-        this.elements.Header().eq(3).click({force: true})
+        this.elements.MainMenuItems().contains('Claim').click({ force: true })
+        this.elements.Header().eq(3).click({ force: true })
     }
     searchClaim(eventName: string) {
         cy.visit('/web/index.php/claim/viewAssignClaim')
-        this.elements.EventName().first().click({force: true})
-        this.elements.ListDropped().contains(eventName).click({force: true})
-        this.elements.SearchBTN().click({force: true})
+        this.elements.EventName().first().click({ force: true })
+        this.elements.ListDropped().contains(eventName).click({ force: true })
+        this.elements.SearchBTN().click({ force: true })
     }
     // selectClaimFromTable(eventName: string){
     //     cy.get('.oxd-table-row.oxd-table-row--with-border') 
@@ -40,10 +40,10 @@ export default class ReportPage {
     approveClaim(eventName: string) {
         for (let i = 0; i < 2; i++) {
             cy.visit('/web/index.php/claim/viewAssignClaim')
-            this.elements.EventName().first().click({force: true})
-            this.elements.ListDropped().contains(eventName).click({force: true})
-            this.elements.SearchBTN().click({force: true})
-            this.elements.ViewDetailsBTN().eq(i).click({force: true})
+            this.elements.EventName().first().click({ force: true })
+            this.elements.ListDropped().contains(eventName).click({ force: true })
+            this.elements.SearchBTN().click({ force: true })
+            this.elements.ViewDetailsBTN().eq(i).click({ force: true })
             this.elements.approveButton().click({ force: true })
 
         }
@@ -51,21 +51,32 @@ export default class ReportPage {
     rejectClaim(eventName: string) {
         for (let i = 0; i < 2; i++) {
             cy.visit('/web/index.php/claim/viewAssignClaim')
-            this.elements.EventName().first().click({force: true})
-            this.elements.ListDropped().contains(eventName).click({force: true})
-            this.elements.SearchBTN().click({force: true})
-            this.elements.ViewDetailsBTN().eq(i).click({force: true})
+            this.elements.EventName().first().click({ force: true })
+            this.elements.ListDropped().contains(eventName).click({ force: true })
+            this.elements.SearchBTN().click({ force: true })
+            this.elements.ViewDetailsBTN().eq(i).click({ force: true })
             this.elements.rejectBTN().click({ force: true })
 
         }
     }
-    assertion(eventName: string, status: string) {
+    assertion(eventName: string, referenceId: string, status: string, date: string, amount: Number) {
         cy.visit('/web/index.php/claim/viewAssignClaim')
-        this.elements.EventName().first().click({force: true})
-        this.elements.ListDropped().contains(eventName).click({force: true})
-        this.elements.SearchBTN().click({force: true})
-        
-        cy.get('.oxd-table-card').eq(0).should('contain', `${status}`);
-        cy.get('.oxd-table-card').eq(1).should('contain', `${status}`);      
+        this.elements.EventName().first().click({ force: true })
+        this.elements.ListDropped().contains(eventName).click({ force: true })
+        this.elements.SearchBTN().click({ force: true })
+
+        const dataToCheck = [
+            { label: 'Status', value: status },
+            { label: 'Date', value: date },
+            { label: 'Amount', value: amount.toLocaleString('en-US', { minimumFractionDigits: 2 }) },
+            // { label: 'ReferenceId', value: referenceId },
+        ];
+
+        dataToCheck.forEach((dataItem) => {
+            for (let i = 0; i < 2; i++) {
+                cy.get('.oxd-table-card').eq(i).should('contain', `${dataItem.value}`);
+            }
+        });
+
     }
 }

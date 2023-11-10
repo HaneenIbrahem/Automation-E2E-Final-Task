@@ -7,12 +7,17 @@ import ClaimPage from "../../support/page-objects/claimsPage";
 
 const claimObj: ClaimPage = new ClaimPage();
 
-// let empNumber: number
 let eventId: number
 let eventName: string
 let expenseTypeId: number
 let empNumbers: number[] = [];
 let claimRequestId: number
+let referenceIds: string[] = []
+
+let amounts: Number[] = []
+const currentDate = new Date();
+const date = currentDate.toISOString().split('T')[0];
+
 describe("Claim Request", () => {
     beforeEach(() => {
         cy.fixture('employee').as('eData')
@@ -38,7 +43,11 @@ describe("Claim Request", () => {
                     for (let i = 0; i < 2; i++) {
                         CreateClaimRequest.requestClaimViaAPI(eventId).then(submitClaimInfo => {
                             claimRequestId = submitClaimInfo.id
-                            CreateClaimRequest.addExpenseViaAPI(claimRequestId, expenseTypeId)
+                            referenceIds.push(submitClaimInfo.refId)
+                            CreateClaimRequest.addExpenseViaAPI(claimRequestId, expenseTypeId).then(addExpenseInfo => {
+                                //    dates.push(addExpenseInfo.date)
+                                amounts.push(addExpenseInfo.amount)
+                            })
                             CreateClaimRequest.submitClaimViaAPI(claimRequestId)
                         })
                     }
@@ -54,13 +63,18 @@ describe("Claim Request", () => {
     it("Claims Request Approval Flow", () => {
         claimObj.navigateToClaimPage()
         claimObj.approveClaim(eventName)
-        claimObj.assertion(eventName, 'Paid')
+        for (let i = 0; i < 2; i++) {
+            claimObj.assertion(eventName, referenceIds[i], 'Paid', date, amounts[i])
+        }
+
     })
 
     it("Claims Request Rejection Flow", () => {
         claimObj.navigateToClaimPage()
         claimObj.rejectClaim(eventName)
-        claimObj.assertion(eventName, 'Rejected')
+        for (let i = 0; i < 2; i++) {
+            claimObj.assertion(eventName, referenceIds[i], 'Rejected', date, amounts[i])
+        }
     })
 
     afterEach(() => {
