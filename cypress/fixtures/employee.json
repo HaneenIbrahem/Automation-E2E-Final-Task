@@ -1,1 +1,16 @@
 
+{
+    "addEmployee": {
+        "firstName": "Haneen",
+        "middleName": "M",
+        "lastName": "Ibrahem",
+        "empPicture": null,
+        "employeeId": "0654"
+    },
+    "addUser": {
+        "username": "HaneenIbrahem",
+        "password": "haneen123",
+        "status": true,
+        "userRoleId": 2
+    }
+}

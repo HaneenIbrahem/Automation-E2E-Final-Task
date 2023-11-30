@@ -10,6 +10,9 @@
     "allure:clear": "npm run clear:allure && npm run clear:cypress",
     "clear:allure": "rimraf allure-results allure-results-aggregated-files allure-report",
     "clear:cypress": "rimraf cypress/screenshots cypress/videos",
+    "cypress": "npm run allure:clear && npx cypress run --browser electron --spec cypress/e2e/OrangeHRM/claim-request-spec.cy.ts --env allure=true && npm run allure:report",
+    "ul-regression-allure": "npx cypress run --browser electron --spec cypress/e2e/OrangeHRM/claim-request-spec.cy.ts --env allure=true && npm run allure:report",
+    "haneen": "npx cypress run --browser electron --spec cypress/e2e/OrangeHRM/claim-request-spec.cy.ts --env allure=true && npm run allure:report"
     "cypress": "npm run allure:clear && npx cypress run --browser electron --spec cypress/e2e/OrangeHRM/employee-report-spec.cy.ts --env allure=true && npm run allure:report",
     "ul-regression-allure": "npx cypress run --browser electron --spec cypress/e2e/OrangeHRM/employee-report-spec.cy.ts --env allure=true && npm run allure:report",
     "haneen": "npx cypress run --browser electron --spec cypress/e2e/OrangeHRM/employee-report-spec.cy.ts --env allure=true && npm run allure:report"
@@ -26,6 +29,7 @@
   "homepage": "https://github.com/HaneenIbrahem/Automation-E2E-Final-Task#readme",
   "devDependencies": {
     "@shelex/cypress-allure-plugin": "^2.40.0",
+    "cypress": "12.14.0",
     "allure-commandline": "^2.24.0",
     "cypress": "12.14.0",
     "rimraf": "^5.0.1",
