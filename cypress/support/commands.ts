@@ -37,12 +37,20 @@ import { AddExpensesPayload } from './payload/addExpensesPayload';
 import { AddExpenseResponse } from './response/addExpensesResponse';
 import { SubmitClaimResponse } from './response/submitClaimResponse';
 import { SubmitClaimPayload } from './payload/submitClaimPayload';
+import { CreateLocationPayload } from "../support/payload/locationPayload";
+import { CreateLocationResponse } from "../support/response/locationResponse";
+import { CreateJobTitlePayload } from "./payload/jobTitlePayload";
+import { CreateJobTitleResponse } from "./response/jobTitleResponse";
 // import AddExpensetoClaim from './helpers/addExpensesHelper';
 const loginObj: LoginPage = new LoginPage();
 declare global {
     namespace Cypress {
         interface Chainable {
             // addNewUser: typeof addNewUser
+            addNewLocation: (requestURL: string, locationPayload: CreateLocationPayload) => Chainable<CreateLocationResponse>
+            deleteLocation: typeof deleteLocation
+            addNewJobTitle: (requestURL: string, jobTitlePayload: CreateJobTitlePayload) => Chainable<CreateJobTitleResponse>
+            deleteJobTitle: typeof deleteJobTitle
             logout: typeof logout
             login: typeof login
             addNewEmployee: typeof addNewEmployee
@@ -162,17 +170,6 @@ Cypress.Commands.add('createNewClaim', (requestURL: string, requestClaimPayload:
     }).its('body')
 });
 
-// Cypress.Commands.add('deleteExpenseType', (expenseTypeId: number) => {
-//     return cy.api({
-//         method: 'DELETE',
-//         url: '/web/index.php/api/v2/claim/expenses/types',
-//         body: {ids: [expenseTypeId]},
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     }).its('body')
-// });
-
 Cypress.Commands.add('addExpenseToClaim', (claimRequestId: number, addExpenseToClaimPayload: AddExpensesPayload) => {
     return cy.api({
         method: 'POST',
@@ -195,6 +192,45 @@ Cypress.Commands.add('submitClaim', (claimRequestId: number, submitClaimPayload:
     }).its('body')
 });
 
+Cypress.Commands.add('addNewLocation', (requestURL: string, locationPayload: CreateLocationPayload) => {
+    return cy.request({
+        method: 'POST',
+        url: requestURL,
+        body: locationPayload.location,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).its('body')
+});
+
+function deleteLocation(locationId: number){
+    cy.request({
+        method: 'DELETE',
+        url: '/web/index.php/api/v2/admin/locations',
+        body: {
+            ids: [locationId]
+        }
+    })
+}
+
+Cypress.Commands.add('addNewJobTitle', (requestURL: string, jobTitlePayload: CreateJobTitlePayload) => {
+    return cy.request({
+        method: 'POST',
+        url: requestURL,
+        body: jobTitlePayload.JobTitle,
+    }).its('body')
+});
+
+function deleteJobTitle(jobTitleId: number){
+    cy.request({
+        method: 'DELETE',
+        url: '/web/index.php/api/v2/admin/job-titles',
+        body: {
+            ids: [jobTitleId]
+        }
+    })
+}
+
 Cypress.Commands.add('logout', logout)
 
 Cypress.Commands.add('login', login)
@@ -204,3 +240,7 @@ Cypress.Commands.add('addNewEmployee', addNewEmployee)
 Cypress.Commands.add('addNewUser', addNewUser)
 
 Cypress.Commands.add('deleteEmployee', deleteEmployee)
+
+Cypress.Commands.add('deleteLocation', deleteLocation)
+
+Cypress.Commands.add('deleteJobTitle', deleteJobTitle)
