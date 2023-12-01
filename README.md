@@ -27,7 +27,7 @@
 
 ______________________________________________________________________________
 
-Write (2) Manual Test Cases in details and Implement Cypress Tests for (2) Claims Request Approval and (2) Rejection flow, which validate the rows in Claims table for approved and rejected claims, including status, date, and the amount for each row.
+## Write (2) Manual Test Cases in details and Implement Cypress Tests for (2) Claims Request Approval and (2) Rejection flow, which validate the rows in Claims table for approved and rejected claims, including status, date, and the amount for each row.
 
 | ID | Title          | Description                                         | Given                                                                                                                    | When                                                                                                                     | Then                             |
 |----|----------------|-----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|----------------------------------|
