@@ -1,6 +1,6 @@
 # 🤖 Automation-E2E-Final-Task
 
-## Test case: Generate an Employee report with search criteria by (Personal : First name/ Job: Job title/ Salary:Amount)
+## Test case: Generate an Employee report with search criteria by (Personal : First name/ Job: Job title/ Salary:Amount) 📊
 
 **PreRequisites:**
 
